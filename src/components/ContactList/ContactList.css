@@ -1,0 +1,12 @@
+.contact-list-title {
+    font-size: 26px;
+    color: #9ca3af;
+}
+
+.contact-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
