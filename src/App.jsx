@@ -17,11 +17,28 @@ class App extends Component {
     filter: "",
   };
 
+  componentDidMount() {
+    console.log("trueMount");
+    const data = localStorage.getItem("contact");
+    if (data) {
+      this.setState({
+        contacts: JSON.parse(data),
+      });
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    console.log("trueUpdate");
+    if (prevState.contacts.length !== this.state.contacts.length) {
+      localStorage.setItem("contact", JSON.stringify(this.state.contacts));
+    }
+  }
+
   handleFilter = (event) => {
     this.setState({
       filter: event.target.value,
     });
-  }
+  };
 
   hamdleAddContact = (newContact) => {
     const dublicateName = this.state.contacts.some(({ name }) => {
@@ -51,11 +68,11 @@ class App extends Component {
       contact.name.toLowerCase().includes(normalizeFilter),
     );
 
+    console.log("render");
+
     return (
       <div className="container">
-        <ContactForm
-          addContact={this.hamdleAddContact}
-        />
+        <ContactForm addContact={this.hamdleAddContact} />
 
         <Filter onChange={this.handleFilter} filter={this.state.filter} />
 
